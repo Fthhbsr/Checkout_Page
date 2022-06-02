@@ -14,13 +14,34 @@ window.addEventListener("load", () => {
 let productsDiv = document.querySelector(".products");
 productsDiv.addEventListener("click", (event) => {
   if (event.target.className == "minus") {
-    console.log("minus button clicked");
+    let quantityP = event.target.nextElementSibling;
+    if (quantityP.innerText > 1) {
+      quantityP.innerText--;
+      let selectedProductInfoDiv;
+      calculateProductAndCartTotal();
+    } else {
+      if (confirm("Product will be deleted?")) {
+        event.target.parentElement.parentElement.parentElement.remove();
+      }
+    }
+
+    // console.log("minus button clicked");
   } else if (event.target.classList.contains("plus")) {
-    console.log("plus button clicked");
+    event.target.previousElementSibling.innerText++;
+    calculateProductAndCartTotal();
+    // console.log("plus button clicked");
   } else if (event.target.classList.contains("remove-product")) {
-    console.log("remove button clilcked");
+    event.target.parentElement.parentElement.parentElement.remove();
+    calculateCartTotal();
+    // console.log("remove button clilcked");
   } else {
     console.log("other elements clicked");
   }
   // console.log(event.target);
 });
+
+const calculateProductAndCartTotal = () => {
+  calculateCartTotal();
+};
+
+const calculateCartTotal = () => {};
